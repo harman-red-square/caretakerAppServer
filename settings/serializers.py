@@ -1,17 +1,17 @@
 from rest_framework import serializers
-from settings.models import settings, LANGUAGE_CHOICES, STYLE_CHOICES
+from settings.models import setting, LANGUAGE_CHOICES, STYLE_CHOICES
 
 
 class settingserializer(serializers.ModelSerializer):
     class Meta:
-        model = settings
+        model = setting
         fields = ('id', 'title', 'code', 'linenos', 'language', 'style')
         
     def create(self, validated_data):
         """
         Create and return a new `Snippet` instance, given the validated data.
         """
-        return settings.objects.create(**validated_data)
+        return setting.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
         """

@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
-from settings.models import settings
+from settings.models import setting
 from settings.serializers import settingserializer
 
 
@@ -23,8 +23,8 @@ def settings_list(request):
     List all code settings, or create a new settings.
     """
     if request.method == 'GET':
-        setting = settings.objects.all()
-        serializer = settingserializer(setting, many=True)
+        settings = setting.objects.all()
+        serializer = settingserializer(settings, many=True)
         return JSONResponse(serializer.data)
 
     elif request.method == 'POST':
@@ -42,7 +42,7 @@ def settings_detail(request, pk):
     Retrieve, update or delete a code settings.
     """
     try:
-        setting = settings.objects.get(pk=pk)
+        settings = setting.objects.get(pk=pk)
     except settings.DoesNotExist:
         return HttpResponse(status=404)
 
